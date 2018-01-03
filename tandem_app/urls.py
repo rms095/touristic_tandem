@@ -1,0 +1,22 @@
+from django.conf.urls import url
+from django.contrib.auth import views as auth_views
+
+from . import views
+
+urlpatterns = [
+    url(r'^index', views.index),
+    url(r'^searchPartner', views.searchPartner),
+    url(r"viewprofile", views.view_profile),
+    url(r"editprofile", views.editprofile),
+    url(r"info", views.info),
+    url(r"add_language", views.add_language),
+    url(r"result", views.change_profile),
+    url(r"remove_language", views.remove_language),
+    url(r"known_languages", views.known_languages),
+    url(r"known_cities", views.known_cities),
+    url(r"profile_picture", views.get_profile_picture),
+    url(r"edit_favourite", views.edit_favourite),
+    url(r"get_friends", views.get_friends),
+    url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    url(r'^logout/$', auth_views.logout, {'template_name': 'logout.html'}, name='logout'),
+]

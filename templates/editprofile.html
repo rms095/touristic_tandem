@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href={% static "maps.css" %}>
+    <link type="text/css" rel="stylesheet" href={% static "pages.css" %}>
+</head>
+<body>
+<div class="container">
+    <div id="content">
+        <h2>Edit your profile</h2>
+        <div>
+            <h3>Profile picture</h3>
+            <div><img id="profile_pic" height="100px" src=""></div>
+            <div><button id="remove-pic">Remove</button></div>
+        </div>
+        <div>
+            <label for="filename" class="label-file">Change profile picture</label><input type="file" id="filename"
+                                                                                          name="filename"
+                                                                                          class="label-file"
+                                                                                          accept="image/gif, image/jpeg, image/png"
+                                                                                          placeholder="change profile picture">
+        </div>
+        <h3>Personal information</h3>
+        <div>
+            <div><label for="firstName">First Name</label><input id="firstName"></div>
+            <div><label for="lastName">Last Name</label><input id="lastName"></div>
+        </div>
+        <div>
+            <label for="city">City <em>(click on a marker on the map, choose from the list, or add your own city)</em></label>
+            <div id="map"></div>
+            <select id="citySelect" title="known_cities"></select>
+            <input id="city">
+        </div>
+        <div>
+            <label for="bio">Biography</label><textarea id="bio"></textarea>
+        </div>
+        <button id="submitButton">Update info</button>
+        <h3>Languages</h3>
+        <div id="spoken_languages">
+            <label>I know these languages:</label>
+            <ul id="spokenLangList"></ul>
+            <select title="known_languages" id="spokenLangSelect"></select>
+            <label for="addLanguage"></label>
+            <input title="addLanguage" id="addSpokenLangField">
+            <button id="addSpokenLangButton">Add</button>
+            <p id="spokenLangWarning"></p>
+        </div>
+        <div id="wanted_languages">
+            <label>I would like to learn these languages:</label>
+            <ul id="wantedLangList"></ul>
+            <select title="known_languages" id="wantedLangSelect"></select>
+            <label for="addLanguage"></label>
+            <input title="addLanguage" id="addWantedLangField"/>
+            <button id="addWantedLangButton">Add</button>
+            <p id="wantedLangWarning"></p>
+        </div>
+        <p id="result"></p>
+        <h3>Friends</h3>
+        <div>
+            <ul id="friends">
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% load static %}
+{# OpenLayers #}
+<script src="https://openlayers.org/en/v4.5.0/build/ol.js" type="text/javascript"></script>
+
+{# jQuery #}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static "js/maps.js" %}"></script>
+<script type="text/javascript" src="{% static 'js/editprofile.js' %}"></script>
+</body>
+</html>
