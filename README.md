@@ -15,16 +15,23 @@ Logout Page :
 
 base page :
 1. added navbar
-2. Welcomes Username and Logout functionality
+2. navbar is fixed from top
+2. Welcomes Username and Logout functionality along with name of app
 
 viewprofile : 
 1. removed extra map adding issue
+2. navigate to edit profile
+
+editprofile : 
+1. removed extra map adding issue
+2. navigate to view profile
 
 Sign up page
 1. Success - redirect to login
 2. Email Authentication
 3. Welcome Message
-4. Error
+4. Page and Design creation
+5. Error
     1. Show required errors
     2. show password doesnt match
     3. gender selection 1
