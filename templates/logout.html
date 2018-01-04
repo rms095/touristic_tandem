@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+        <div class="jumbotron" style="box-shadow: 2px 2px 4px #000000;">
+            <h2 class="text-center">You have been successfully logged out</h2>
+            <center style="margin-top:50px;">
+                <strong>You will be redirecting to login page in 3 seconds</strong>
+            </div>
+        </div>
+	</div>
+
+<script type="text/javascript">
+        setTimeout(function() {
+            window.location.href = "/app/login/";
+        }, 3000);
+</script>
+{% endblock %}
