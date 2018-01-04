@@ -22,6 +22,10 @@ def home(request):
 
 # Serve the 'edit profile' page (data will be requested through AJAX)
 def editprofile(request):
+    print("Request : ")
+    print(request)
+    print(request.user.get_full_name)
+    print(request.user.first_name)
     return render(request, "editprofile.html")
 
 

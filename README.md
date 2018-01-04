@@ -13,6 +13,10 @@ Logout Page :
 1. redirect to login page
 2. log out page 
 
+base page :
+1. added navbar
+2. Welcomes Username and Logout functionality
+
 Sign up page
 1. Success - redirect to login
 2. Email Authentication
@@ -25,4 +29,4 @@ Sign up page
 
 issue : 
 1. cant hold values
-2. cant verify weather data is actually stored or not
+2. cant verify weather data is actually stored or not - Done
