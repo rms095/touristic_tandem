@@ -8,6 +8,10 @@ $(document).ready(function () {
     var city = $("#city").text();
     var vector = generateMap()["vector"];
     addCityMarker(city, false, vector);
+
+    // twick - Extra map removed
+    console.log("Done");
+    $('#map').children().last().remove();
 });
 
 

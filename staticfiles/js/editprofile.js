@@ -90,6 +90,9 @@ function fillForm(data) {
     $("#city").val(data["city"]);
     $("#bio").val(data["bio"]);
     $("#mode").val(data["mode"]);
+    
+    print("data :")
+    print(data)
 
     userId = data["userId"];
 
@@ -165,8 +168,8 @@ function processCities(vector, homecity) {
 function getInfo(onSuccess) {
     $.getJSON("info", function (data) {
         onSuccess(data);
-    }).fail(function () {
-        console.log("Error");
+    }).fail(function (e) {
+        console.log("Error" + e);
     })
 }
 

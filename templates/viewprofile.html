@@ -1,13 +1,8 @@
-<html>
-<head>
-    <title>Profile: {{ username }}</title>
-    {% load static %}
-    <link type="text/css" rel="stylesheet" href={% static "maps.css" %}>
-    <link type="text/css" rel="stylesheet" href={% static "pages.css" %}>
+{% extends 'base.html' %}
 
-</head>
-<body>
-<div class="container">
+{% block title %} {{user}}'s Dashboard {% endblock %}
+
+{% block content %}
     <div id="content">
         <h1>Profile: <em id="userName">{{ user.username }}</em></h1>
         {% load static %}
@@ -28,7 +23,7 @@
         </div>
         <h2>Info</h2>
         <ul>
-            <li><em>Name:</em> {{ user.first_name }} {{ ser.last_name }}</li>
+            <li><em>Name:</em> {{ user.first_name }} {{ user.last_name }}</li>
             <li><em>City:</em> <span id="city">{{ city }}</span>
                 <div id="map"></div>
             </li>
@@ -60,14 +55,4 @@
         </ul>
     </div>
 </div>
-{# OpenLayers #}
-<script src="https://openlayers.org/en/v4.5.0/build/ol.js" type="text/javascript"></script>
-
-{# jQuery #}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
-
-{% load static %}
-<script src="{% static "js/maps.js" %}"></script>
-<script src="{% static "js/viewprofile.js" %}" type="text/javascript"></script>
-</body>
-</html>
+{% endblock %}

@@ -1,4 +1,6 @@
 function generateMap() {
+
+    console.log("inside generateMap");
     // Adapted from tutorials at https://openlayers.org/en/latest/doc/quickstart.html and https://openlayers.org/en/latest/examples/feature-move-animation.html?q=marker
     var vector = new ol.source.Vector({
         features: []
@@ -32,6 +34,7 @@ function generateMap() {
 }
 
 function setCityFromMap(map) {
+    console.log("Set City map");
     return function(clickEvent) {
         var features = map.getFeaturesAtPixel(clickEvent.pixel);
         if (features) {
@@ -43,6 +46,7 @@ function setCityFromMap(map) {
 }
 
 function addCityMarker(city, home, vector) {
+    console.log("Add City Marker");
     // Add city to map
     $.getJSON("https://maps.googleapis.com/maps/api/geocode/json",
         {

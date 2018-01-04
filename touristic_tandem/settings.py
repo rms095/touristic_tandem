@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'vgvv0_*&0i4me75(u=p_n7izgg2%ulanjlmf4v#$@hv0%b!al)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -140,3 +140,11 @@ STATICFILES_DIRS = (
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'viewprofile'
+
+
+#Email configs
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'rms095@gmail.com'
+EMAIL_HOST_PASSWORD = 'radarbase095'
+EMAIL_PORT = 587

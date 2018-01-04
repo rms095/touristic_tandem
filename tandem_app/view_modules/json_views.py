@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 
 def change_profile(request):
-    john = Profile.objects.get(user_id=1)
+    user = Profile.objects.get(user_id=request.POST["userId"])
 
     first_name = request.POST["f_name"]
     last_name = request.POST["l_name"]
@@ -15,20 +15,24 @@ def change_profile(request):
     bio = request.POST["bio"]
 
     if "picture" in request.FILES:
-        utils.handle_picture(request.FILES["picture"], 1)
+        utils.handle_picture(request.FILES["picture"], request.POST["userId"])
 
-    john.first_name = first_name
-    john.last_name = last_name
-    john.city = city
-    john.bio = bio
+    user.first_name = first_name
+    user.last_name = last_name
+    user.city = city
+    user.bio = bio
 
-    john.save()
+    user.save()
 
     return JsonResponse({"success": True})
 
 
 def info(request):
-    user_id = int(request.POST["userId"]) if "userId" in request.POST else 1
+    print("####### request - inside Info Json view")
+    print(request)
+    print(request.GET["userId"])
+    print(request.POST["userId"])
+    user_id = int(request.POST["user_id"]) if "user_id" in request.POST else request.POST["user_id"]
     profile = Profile.objects.get(user_id=user_id)
     user = User.objects.get(id=user_id)
     languages = Language.objects.filter(user_id=user_id)
@@ -46,7 +50,7 @@ def info(request):
 
 
 def add_language(request):
-    languages = Language.objects.filter(user_id=1)
+    languages = Language.objects.filter(user_id=request.GET["userId"])
 
     # Refuse language that already exists
     if request.GET["language"] in [l.language for l in language]:
@@ -54,7 +58,7 @@ def add_language(request):
     else:
         new_lang = Language()
         new_lang.language = request.GET["language"]
-        new_lang.user_id = 12
+        new_lang.user_id = request.GET["userId"]
         new_lang.language_type = request.GET["type"]
 
         new_lang.save()
@@ -76,7 +80,7 @@ def known_cities(request):
 
 
 def remove_language(request):
-    language = Language.objects.filter(user_id=1).get(language=request.GET["language"])
+    language = Language.objects.filter(user_id=request.GET["userId"]).get(language=request.GET["language"])
     language.delete()
 
     return JsonResponse({"success": True})
@@ -84,7 +88,7 @@ def remove_language(request):
 
 def get_profile_picture(request):
     user_id = request.GET["userId"]
-    profile_path = os.path.join("staticfiles", "userfiles", request.GET["userId"] + ".png")
+    profile_path = os.path.join("staticfiles", "userfiles", user_id + ".png")
 
     if request.GET["action"] == "remove":
         if os.path.exists(profile_path):
@@ -106,9 +110,9 @@ def get_profile_picture(request):
 
 
 def edit_favourite(request):
-    user = User.objects.get(id=1)  # TODO: replace by real current user ID
+    user = User.objects.get(id=request.GET["userId"])  # TODO: replace by real current user ID
     friend_name = request.POST["friend_name"]
-    friend_id = User.objects.get(user_name=friend_name).id
+    friend_id = User.objects.get(username=friend_name).id
     action = request.POST["action"]
 
     print(action)
@@ -131,7 +135,7 @@ def edit_favourite(request):
 
 
 def get_friends(_):
-    user = User.objects.get(id=1)  # TODO Replace by real user
+    user = User.objects.get(id=request.GET["userId"])  # TODO Replace by real user
     friends = Favourite.objects.filter(friend_of=user)
 
     return JsonResponse({

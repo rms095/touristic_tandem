@@ -1,8 +1,18 @@
 from django.http import HttpResponse
 from django.template import loader
+from django.shortcuts import render, redirect, render_to_response
+from django.contrib.auth import login, authenticate, logout
 
-from .models import Profile
+from .models import Profile, Language
 from .view_modules import html_views, json_views
+from .forms import SignUpForm
+
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.core.mail import EmailMessage
+from django.template import RequestContext
 
 
 def searchPartner(request):
@@ -35,7 +45,7 @@ def signup(request):
                 city=home_city, gender=gender
             )
             user_profile.save()
-            user_language = Languages.objects.create(
+            user_language = Language.objects.create(
                 user=user, language=language_To_Learn, language_type='Programming'
             )
             user_language.save()
@@ -47,7 +57,6 @@ def signup(request):
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(
@@ -58,7 +67,13 @@ def signup(request):
             return redirect('logout')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})   
+    return render(request, 'signup.html', {'form': form}) 
+
+def handler404(request):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response  
 
 
 # Render pages

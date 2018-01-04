@@ -1,10 +1,11 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
+from django.conf.urls import handler404
 
 from . import views
 
 urlpatterns = [
-    url(r'^index', views.index),
+    url(r'^index', views.index, name='home'),
     url(r'^searchPartner', views.searchPartner),
     url(r"viewprofile", views.view_profile, name='viewprofile'),
     url(r"editprofile", views.editprofile, name='editprofile'),
@@ -19,4 +20,8 @@ urlpatterns = [
     url(r"get_friends", views.get_friends),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'template_name': 'logout.html'}, name='logout'),
+    url(r'^signup/$', views.signup, name='signup'),
 ]
+
+
+handler404 = views.handler404
