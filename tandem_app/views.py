@@ -14,6 +14,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
 from django.template import RequestContext
 
+def partnerlist(request):
+    return render(request, "partnerlist.html")
 
 def searchPartner(request):
     john = Profile.objects.get(user_id=1)
@@ -63,10 +65,22 @@ def signup(request):
                         mail_subject, message, to=[to_email]
             )
             email.send()
-
             return redirect('logout')
-    else:
-        form = SignUpForm()
+
+        else:
+            context = {
+                "username" : form.cleaned_data.get('username'),
+                "first_name" : form.cleaned_data.get('first_name'),
+                "last_name": form.cleaned_data.get('last_name'),
+                "email" : form.cleaned_data.get('email'),
+                "home_city" : form.cleaned_data.get('home_city'),
+                "country" : form.cleaned_data.get('country'),
+                "language_To_Learn" : form.cleaned_data.get('language_To_Learn'),
+                "gender" : form.cleaned_data.get('gender'),
+            }
+            form = SignUpForm(request.POST)
+            return render_to_response('signup.html', {}, RequestContext(context))
+    form = SignUpForm()
     return render(request, 'signup.html', {'form': form}) 
 
 def handler404(request):
@@ -92,3 +106,5 @@ known_cities = json_views.known_cities
 get_profile_picture = json_views.get_profile_picture
 edit_favourite = json_views.edit_favourite
 get_friends = json_views.get_friends
+
+InfoPartner=json_views.InfoPartner

@@ -2,9 +2,14 @@
 
 {% block title %} {{user}}'s Dashboard {% endblock %}
 
+{% load static %}
 {% block content %}
+
+    <link type="text/css" rel="stylesheet" href={% static "maps.css" %}>
+    <link type="text/css" rel="stylesheet" href={% static "pages.css" %}>
+
     <div id="content">
-        <a href="{% url 'editprofile' %}" class="btn btn-primary btn-default" style="float: right">
+        <a href="{% url 'editprofile' %}?userId={{user_id}}" class="btn btn-primary btn-default" style="float: right">
             <span class="glyphicon glyphicon-pencil"></span> &nbsp; &nbsp; Edit Profile
         </a>
         <h1>Profile: <em id="userName">{{ user.username }}</em></h1>
@@ -58,4 +63,14 @@
         </ul>
     </div>
 </div>
+
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+<script src="{% static 'js/ol.js' %}"></script>
+
+<script src="{% static 'js/maps.js' %}"></script>
+<script src="{% static 'js/viewprofile.js' %}" type="text/javascript"></script>
+
 {% endblock %}

@@ -7,6 +7,7 @@ from . import views
 urlpatterns = [
     url(r'^index', views.index, name='home'),
     url(r'^searchPartner', views.searchPartner),
+    url(r'^partnerlist', views.partnerlist),
     url(r"viewprofile", views.view_profile, name='viewprofile'),
     url(r"editprofile", views.editprofile, name='editprofile'),
     url(r"info", views.info),
@@ -21,6 +22,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'template_name': 'logout.html'}, name='logout'),
     url(r'^signup/$', views.signup, name='signup'),
+    url(r"InfoPartner", views.InfoPartner),
 ]
 
 

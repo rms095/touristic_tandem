@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     // twick - Extra map removed
     console.log("Done");
-    $('#map').children().last().remove();
+    //$('#map').children().last().remove();
 });
 
 

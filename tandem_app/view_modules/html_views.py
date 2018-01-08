@@ -1,8 +1,9 @@
 import os
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from django.contrib.auth.models import User
 from tandem_app.models import Profile, Language, Favourite
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
 
 # Serve the index page
 def index(request):
@@ -22,6 +23,7 @@ def home(request):
 
 # Serve the 'edit profile' page (data will be requested through AJAX)
 def editprofile(request):
+    print(request.GET)
     return render(request, "editprofile.html")
 
 
@@ -33,7 +35,7 @@ def view_profile(request):
 
     current_user = request.user
     print(current_user)
-    print(current_user.id)
+    print("*********************"+str(current_user.id))
 
     user_id = current_user.id 
     '''\
@@ -42,17 +44,21 @@ def view_profile(request):
 
     profile = Profile.objects.get(user_id=user_id)
     user = User.objects.get(id=user_id)
+    print(user)
     
     languages = Language.objects.filter(user_id=user_id)
 
+    print(languages)
     profile_image = os.path.join("userfiles", str(user_id) + ".png")
+    print(profile_image)
+
     if os.path.exists(os.path.join("staticfiles", profile_image)):
         image_path = profile_image
     else:
         image_path = os.path.join("userfiles", "default.png")
 
     context = {
-        "self": user_id,
+        "user_id": user_id,
         "already_friends": Favourite.objects.filter(friend_id=user_id, friend_of=1).exists(),  # TODO
         "profile_image": image_path,
         "user_name": user.username,
@@ -64,11 +70,13 @@ def view_profile(request):
         "wanted_languages": [l.language for l in languages if l.language_type == "wanted"]
     }
 
-    return render(request, "viewprofile.html", context=context)
+    return render_to_response('viewprofile.html',context)
 
 
 def result(request):
-    john = Profile.objects.get(user_id=1)
+    print("inside result Def")
+
+    john = Profile.objects.get(1)
 
     first_name = request.GET["first_name"]
     last_name = request.GET["last_name"]

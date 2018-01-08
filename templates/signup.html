@@ -2,12 +2,13 @@
 {% block title %} Sign up {% endblock %}
 
 {% block content %}
+
   <div id="signupbox" style="margin-top:50px">
     <div class="panel panel-info">
       <div class="panel-heading">
-        <div class="panel-title">Sign Up</div>
+        <div class="panel-title">Sign Up{{username}}</div>
         <div style="float:right; font-size: 85%; position: relative; top:-25px">
-          <a href="{% url 'login' %}">Sign In</a></div>
+          <a href="{% url 'login' %}">Sign In </a></div>
         </div>  
         <div class="panel-body" >
           <form id="form" class="form-horizontal" name="form" role="form" method="post" action=".">

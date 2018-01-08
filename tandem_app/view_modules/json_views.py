@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 
 
 def change_profile(request):
+    print("inside change_profile")
+    
     user = Profile.objects.get(user_id=request.POST["userId"])
 
     first_name = request.POST["f_name"]
@@ -28,11 +30,16 @@ def change_profile(request):
 
 
 def info(request):
-    print("####### request - inside Info Json view")
-    print(request)
-    print(request.GET["userId"])
-    print(request.POST["userId"])
-    user_id = int(request.POST["user_id"]) if "user_id" in request.POST else request.POST["user_id"]
+    print("JSON_view - inside info")
+    if request.method == 'GET':
+        print("GET request")
+        print(request.GET.keys())
+    elif request.method == 'POST':
+        print("POST request")
+
+    user_id = int(request.GET["userId"])
+    print("USER ID ")
+    print(user_id)
     profile = Profile.objects.get(user_id=user_id)
     user = User.objects.get(id=user_id)
     languages = Language.objects.filter(user_id=user_id)
@@ -141,3 +148,17 @@ def get_friends(_):
     return JsonResponse({
         "favourites": [f.friend_id.user_name for f in friends]
     })
+
+
+def InfoPartner(request): #info sébi9an
+
+    city_name = request.GET["cityName"]
+    profiles = Profiles.objects.filter(city=city_name)
+    return JsonResponse({
+                         "partners_id": [l.user_id for l in profiles if l.user_id != 12],
+                         "partners_firstnames": [l.first_name for l in profiles if l.user_id != 12],
+                         "partners_lastnames": [l.last_name for l in profiles if l.user_id != 12],
+                         "partners_modes": [l.mode for l in profiles if l.user_id != 12]
+
+    })
+
