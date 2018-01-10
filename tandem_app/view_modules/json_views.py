@@ -152,19 +152,15 @@ def edit_favourite(request):
 
 
 def get_friends(request):
-    print("+++++ inside friends")
-
     user = User.objects.get(id=request.GET["userId"])
     friends = Favourite.objects.filter(friend_of=user)
-    print("Amche Bandhav")
-    print(friends)
+    
     return JsonResponse({
         "favourites": [f.friend_id.username for f in friends]
     })
 
 
 def InfoPartner(request):
-
     city_name = request.GET["cityName"]
     profiles = Profiles.objects.filter(city=city_name)
     return JsonResponse({

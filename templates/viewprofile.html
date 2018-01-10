@@ -9,7 +9,7 @@
         <a href="{% url 'editprofile' %}?userId={{user_id}}" class="btn btn-primary btn-default" style="float: right">
             <span class="glyphicon glyphicon-pencil"></span> &nbsp; &nbsp; Edit Profile
         </a>
-        <h1>Profile: <em id="userName">{{ user.username }}</em></h1>
+        <h1>Profile: <em id="userName">{{ user_name }}</em></h1>
         {% load static %}
         <img src="{% static profile_image %}" height="100px">
         <div>
@@ -28,7 +28,7 @@
         </div>
         <h2>Info</h2>
         <ul>
-            <li><em>Name:</em> {{ user.first_name }} {{ user.last_name }}</li>
+            <li><em>Name:</em> {{ first_name }} {{ last_name }}</li>
             <li><em>City:</em> <span id="city">{{ city }}</span>
                 <div id="map"></div>
             </li>
