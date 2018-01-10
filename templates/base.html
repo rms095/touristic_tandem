@@ -26,7 +26,11 @@
 
 					<ul class="nav navbar-nav navbar-right" style="margin-right:50px;">
 						<li>
-							<h4><strong> Welcome {{ request.user.first_name }},</strong></h4>
+							{% if request.user.first_name %}
+								<h4><strong> Welcome {{ request.user.first_name }},</strong></h4>
+							{% else %}
+								<h4><strong> Welcome {{ first_name }},</strong></h4>
+							{% endif %}
 						</li>
 						<li >
 							<h4 style="margin-left: 10px;"><a href="{% url 'logout' %}"><strong>Logout</strong></a></h4>

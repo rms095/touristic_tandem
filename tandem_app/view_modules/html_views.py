@@ -34,8 +34,6 @@ def view_profile(request):
     print(request.user)
 
     current_user = request.user
-    print(current_user)
-    print("*********************"+str(current_user.id))
 
     user_id = current_user.id 
     '''\
@@ -51,6 +49,7 @@ def view_profile(request):
     print(languages)
     profile_image = os.path.join("userfiles", str(user_id) + ".png")
     print(profile_image)
+    favourite = Favourite.objects.filter(friend_id=user_id)
 
     if os.path.exists(os.path.join("staticfiles", profile_image)):
         image_path = profile_image
@@ -59,7 +58,7 @@ def view_profile(request):
 
     context = {
         "user_id": user_id,
-        "already_friends": Favourite.objects.filter(friend_id=user_id, friend_of=1).exists(),  # TODO
+        "favourite" : Favourite.objects.filter(friend_id=user),
         "profile_image": image_path,
         "user_name": user.username,
         "first_name": user.first_name,
@@ -67,15 +66,13 @@ def view_profile(request):
         "city": profile.city,
         "bio": profile.bio,
         "spoken_languages": [l.language for l in languages if l.language_type == "spoken"],
-        "wanted_languages": [l.language for l in languages if l.language_type == "wanted"]
+        "wanted_languages": [l.language for l in languages if l.language_type == "wanted"],
     }
 
     return render_to_response('viewprofile.html',context)
 
 
 def result(request):
-    print("inside result Def")
-
     john = Profile.objects.get(1)
 
     first_name = request.GET["first_name"]

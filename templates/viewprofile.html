@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} {{user}}'s Dashboard {% endblock %}
+{% block title %} {{user_name}}'s Dashboard {% endblock %}
 
 {% load static %}
 {% block content %}
@@ -13,14 +13,14 @@
         {% load static %}
         <img src="{% static profile_image %}" height="100px">
         <div>
-            {% if self %}
+            {% if user_id %}
                 <button id="favourite" value="self">This is you!</button>
             {% elif already_friends %}
                 <button id="favourite" value="remove">Remove favourite</button>
             {% else %}
                 <button id="favourite" value="add">Add favourite</button>
             {% endif %}
-            {% if not self %}
+            {% if not user_id %}
                 <form action="message.html">
                     <button type="submit">Send message</button>
                 </form>

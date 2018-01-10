@@ -154,7 +154,7 @@ def edit_favourite(request):
 def get_friends(request):
     user = User.objects.get(id=request.GET["userId"])
     friends = Favourite.objects.filter(friend_of=user)
-    
+
     return JsonResponse({
         "favourites": [f.friend_id.username for f in friends]
     })
@@ -162,12 +162,12 @@ def get_friends(request):
 
 def InfoPartner(request):
     city_name = request.GET["cityName"]
-    profiles = Profiles.objects.filter(city=city_name)
+    profiles = Profile.objects.filter(city=city_name)
     return JsonResponse({
-                         "partners_id": [l.user_id for l in profiles if l.user_id != 1],
-                         "partners_firstnames": [l.first_name for l in profiles if l.user_id != 1],
-                         "partners_lastnames": [l.last_name for l in profiles if l.user_id != 1],
-                         "partners_modes": [l.mode for l in profiles if l.user_id != 1]
+                         "partners_id": [l.user_id for l in profiles],
+                         "partners_firstnames": [l.first_name for l in profiles],
+                         "partners_lastnames": [l.last_name for l in profiles],
+                         "partners_modes": [l.mode for l in profiles]
 
     })
 
