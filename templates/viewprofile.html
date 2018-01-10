@@ -5,9 +5,6 @@
 {% load static %}
 {% block content %}
 
-    <link type="text/css" rel="stylesheet" href={% static "maps.css" %}>
-    <link type="text/css" rel="stylesheet" href={% static "pages.css" %}>
-
     <div id="content">
         <a href="{% url 'editprofile' %}?userId={{user_id}}" class="btn btn-primary btn-default" style="float: right">
             <span class="glyphicon glyphicon-pencil"></span> &nbsp; &nbsp; Edit Profile

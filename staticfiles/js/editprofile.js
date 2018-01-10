@@ -131,6 +131,22 @@ function fillForm(data) {
 
     language_types.forEach(addLanguages);
 
+    getFavourites(
+        function (friend) {
+            $("#friends")
+                .append($("<li>").append(
+                    $("<a>").attr("href", "viewprofile.html?user_name=" + friend).text(friend)
+                    ).append(
+                    $("<button>")
+                        .text("Remove")
+                        .click(removeFavourite(friend, function() {getInfo(fillForm);}))
+                    )
+                );
+        },
+        function () {
+            $("#friends").html("No friends!");
+        });
+
 }
 
 // Fill a language drop-down menu
@@ -186,7 +202,7 @@ function addLanguage(type) {
             $warning.html("<b>The language you're trying to add is already on your list!</b>");
         }
         else {
-            $.getJSON("add_language", {language: language, type: type}, function () {
+            $.getJSON("add_language", {language: language, type: type, userId:userId}, function () {
                 getInfo(fillForm);
                 fillLanguageList(type);
             })
@@ -221,8 +237,10 @@ function getFavourites(onSuccess, onEmpty) {
     console.log("inside favourites")
     $.getJSON(
         "get_friends",
-        {},
+        {userId : userId},
         function (data) {
+            console.log("friends data : ");
+            console.log(data);
             if (data["favourites"].length === 0) {
                 onEmpty();
             }

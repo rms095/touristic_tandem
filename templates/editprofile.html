@@ -2,12 +2,10 @@
 {% load static %}
 {% block content %}
 
-<link type="text/css" rel="stylesheet" href={% static "maps.css" %}>
-<link type="text/css" rel="stylesheet" href={% static "pages.css" %}>
-
 <div id="content">
     <fieldset>
-        <legend >Edit your profile <a href="{% url 'viewprofile' %}" class="btn btn-primary btn-default" style="float: right; margin-top: -15px;"><span class="glyphicon glyphicon-pencil"></span> &nbsp; &nbsp;View Profile</a> <br/> </legend>
+        <legend >Edit your profile <a href="{% url 'viewprofile' %}" class="btn btn-primary btn-default" style="float: right; margin-top: -15px;"><span class="glyphicon glyphicon-pencil"></span> &nbsp; &nbsp;View Profile</a> <br/> 
+        </legend>
 
         <div class="row">
             <div class="row">
@@ -41,18 +39,16 @@
                       </div>
                   </div>
 
-                  <!-- Text input-->
                   <div class="form-group row">
                       <label class="col-md-3 control-label" for="last_name">Last Nae</label>  
                       <div class="col-md-8">
                           <input id="lastName" name="last_name" type="text" placeholder="" class="form-control input-md" required="">
-
                       </div>
                   </div>
 
                   <div class="form-group row">
                     <label class="col-md-3 control-label" for="textarea">Bio</label>
-                      <div class="col-md-8">                     
+                    <div class="col-md-8">                     
                         <textarea class="form-control" id="bio" name="textarea"></textarea>
                     </div>
                 </div>
@@ -63,16 +59,27 @@
 
     <hr class="hr-primary">
     
-    <div>
-        <label for="city">City <em>(click on a marker on the map, choose from the list, or add your own city)</em></label>
-        <div id="map"></div>
-        <select id="citySelect" title="known_cities"></select>
-        <input id="city">
+    <div class="row">
+        <div class="col-md-6">
+            <select id="citySelect" title="known_cities" class="form-control input-md"></select>
+        </div>
+        <div class="col-md-6">
+            <input id="city" class="form-control input-md">
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div id="map"></div>
+            <label for="city">City <em>(click on a marker on the map, choose from the list, or add your own city)</em></label>
+        </div>
+        
     </div>
 
     <hr class="hr-primary">
     
     <button id="submitButton">Update info</button>
+
     <h3>Languages</h3>
     <div id="spoken_languages">
         <label>I know these languages:</label>

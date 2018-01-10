@@ -7,8 +7,6 @@ from django.contrib.auth.models import User
 
 
 def change_profile(request):
-    print("inside change_profile")
-    
     user = Profile.objects.get(user_id=request.POST["userId"])
 
     first_name = request.POST["f_name"]
@@ -57,10 +55,20 @@ def info(request):
 
 
 def add_language(request):
+    print("******************** add Language")
+    print(request.GET["userId"])
+    
     languages = Language.objects.filter(user_id=request.GET["userId"])
+    print("language Length")
+    print(languages.count())
+    print("language")
+    print(request.GET["language"])
+
+    for l in languages:
+        print(l)
 
     # Refuse language that already exists
-    if request.GET["language"] in [l.language for l in language]:
+    if request.GET["language"] in [l.language for l in languages]:
         success = False
     else:
         new_lang = Language()
@@ -77,6 +85,8 @@ def add_language(request):
 
 def known_languages(request):
     exclude = request.GET["exclude"].split("%")
+    print("exclude")
+    print(exclude)
     languages = utils.collect_counts([l.language for l in Language.objects.all()], exclude)
     return JsonResponse({"languages": utils.get_most_frequent(languages, 100)})
 
@@ -117,7 +127,7 @@ def get_profile_picture(request):
 
 
 def edit_favourite(request):
-    user = User.objects.get(id=request.GET["userId"])  # TODO: replace by real current user ID
+    user = User.objects.get(id=request.GET["userId"])
     friend_name = request.POST["friend_name"]
     friend_id = User.objects.get(username=friend_name).id
     action = request.POST["action"]
@@ -141,24 +151,27 @@ def edit_favourite(request):
     return None
 
 
-def get_friends(_):
-    user = User.objects.get(id=request.GET["userId"])  # TODO Replace by real user
-    friends = Favourite.objects.filter(friend_of=user)
+def get_friends(request):
+    print("+++++ inside friends")
 
+    user = User.objects.get(id=request.GET["userId"])
+    friends = Favourite.objects.filter(friend_of=user)
+    print("Amche Bandhav")
+    print(friends)
     return JsonResponse({
-        "favourites": [f.friend_id.user_name for f in friends]
+        "favourites": [f.friend_id.username for f in friends]
     })
 
 
-def InfoPartner(request): #info sébi9an
+def InfoPartner(request):
 
     city_name = request.GET["cityName"]
     profiles = Profiles.objects.filter(city=city_name)
     return JsonResponse({
-                         "partners_id": [l.user_id for l in profiles if l.user_id != 12],
-                         "partners_firstnames": [l.first_name for l in profiles if l.user_id != 12],
-                         "partners_lastnames": [l.last_name for l in profiles if l.user_id != 12],
-                         "partners_modes": [l.mode for l in profiles if l.user_id != 12]
+                         "partners_id": [l.user_id for l in profiles if l.user_id != 1],
+                         "partners_firstnames": [l.first_name for l in profiles if l.user_id != 1],
+                         "partners_lastnames": [l.last_name for l in profiles if l.user_id != 1],
+                         "partners_modes": [l.mode for l in profiles if l.user_id != 1]
 
     })
 

@@ -38,8 +38,12 @@ def signup(request):
             home_city=form.cleaned_data.get('home_city')
             country=form.cleaned_data.get('country')
             language_To_Learn=form.cleaned_data.get('language_To_Learn')
+            language_type_learn=form.cleaned_data.get('language_type_learn')
+            language_to_speak=form.cleaned_data.get('language_to_speak')
+            language_type_speak=form.cleaned_data.get('language_type_speak')
             gender=form.cleaned_data.get('gender')
             raw_password = form.cleaned_data.get('password1')
+
 
             user = authenticate(username=username, password=raw_password)
             user_profile = Profile.objects.create(
@@ -48,7 +52,12 @@ def signup(request):
             )
             user_profile.save()
             user_language = Language.objects.create(
-                user=user, language=language_To_Learn, language_type='Programming'
+                user=user, language=language_To_Learn, language_type=language_type_learn
+            )
+            user_language.save()
+
+            user_language = Language.objects.create(
+                user=user, language=language_To_Learn, language_type=language_type_speak
             )
             user_language.save()
 
