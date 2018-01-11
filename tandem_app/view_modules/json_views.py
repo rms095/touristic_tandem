@@ -45,8 +45,8 @@ def info(request):
     return JsonResponse({
         "userId": user_id,
         "userName": user.username,
-        "firstName": profile.first_name,
-        "lastName": profile.last_name,
+        "firstName": user.first_name,
+        "lastName": user.last_name,
         "city": profile.city,
         "bio": profile.bio,
         "spoken_languages": [l.language for l in languages if l.language_type == "spoken"],

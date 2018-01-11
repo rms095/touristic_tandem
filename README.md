@@ -36,6 +36,7 @@ editprofile :
 2. navigate to view profile
 3. UI allignment
 4. Show friends, languages details after integration
+5. Change or Remove Profile
 
 Sign up page
 1. Success - redirect to login
@@ -44,7 +45,8 @@ Sign up page
 4. Page and Design creation
 5. Support added for language to learn and wanted 
 6. added Language types
-7. Error
+7. Added Bio
+8. Error
     1. Show required errors
     2. show password doesnt match
     3. gender selection 1

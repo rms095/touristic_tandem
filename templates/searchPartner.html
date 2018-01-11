@@ -1,23 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
-    {% load static %}
-    {% csrf_token %}
-
-<head>
-  <link rel="stylesheet" type="text/css" href="{% static 'pages.css' %}" />
-  <link type="text/css" rel="stylesheet" href="{% static 'maps.css' %}">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <title>Title</title>
-
-</head>
-
-<body>
-<div class="container">
   <div id="content" >
 
     <h3>Search for a partner</h3>
@@ -57,8 +41,14 @@
 
 </div>
   <p id="result"></p>
-  <script src="https://openlayers.org/en/v4.5.0/build/ol.js" type="text/javascript"></script>
-  <script type="text/javascript" src="{% static 'js/searchnew.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/maps.js' %}"></script>
 
-</body>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+<script src="{% static 'js/ol.js' %}"></script>
+
+<script src="{% static 'js/maps.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/searchnew.js' %}"></script>
+
+
+{% endblock %}

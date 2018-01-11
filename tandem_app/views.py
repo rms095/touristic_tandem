@@ -38,26 +38,25 @@ def signup(request):
             home_city=form.cleaned_data.get('home_city')
             country=form.cleaned_data.get('country')
             language_To_Learn=form.cleaned_data.get('language_To_Learn')
-            language_type_learn=form.cleaned_data.get('language_type_learn')
             language_to_speak=form.cleaned_data.get('language_to_speak')
-            language_type_speak=form.cleaned_data.get('language_type_speak')
             gender=form.cleaned_data.get('gender')
+            bio=form.cleaned_data.get('bio')
             raw_password = form.cleaned_data.get('password1')
 
 
             user = authenticate(username=username, password=raw_password)
             user_profile = Profile.objects.create(
-                user=user, bio='bio', mode='Mode', country=country,
+                user=user, bio=bio, mode='Mode', country=country,
                 city=home_city, gender=gender
             )
             user_profile.save()
             user_language = Language.objects.create(
-                user=user, language=language_To_Learn, language_type=language_type_learn
+                user=user, language=language_To_Learn, language_type='wanted'
             )
             user_language.save()
 
             user_language = Language.objects.create(
-                user=user, language=language_To_Learn, language_type=language_type_speak
+                user=user, language=language_to_speak, language_type='spoken'
             )
             user_language.save()
 
@@ -74,22 +73,14 @@ def signup(request):
                         mail_subject, message, to=[to_email]
             )
             email.send()
-            return redirect('logout')
 
+            return redirect('logout')
         else:
-            context = {
-                "username" : form.cleaned_data.get('username'),
-                "first_name" : form.cleaned_data.get('first_name'),
-                "last_name": form.cleaned_data.get('last_name'),
-                "email" : form.cleaned_data.get('email'),
-                "home_city" : form.cleaned_data.get('home_city'),
-                "country" : form.cleaned_data.get('country'),
-                "language_To_Learn" : form.cleaned_data.get('language_To_Learn'),
-                "gender" : form.cleaned_data.get('gender'),
-            }
-            form = SignUpForm(request.POST)
-            return render_to_response('signup.html', {}, RequestContext(context))
-    form = SignUpForm()
+            print("errors")
+            print(form.errors)
+    else:
+        form = SignUpForm()
+
     return render(request, 'signup.html', {'form': form}) 
 
 def handler404(request):

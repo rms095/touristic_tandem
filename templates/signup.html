@@ -54,6 +54,37 @@
                 <input type="text" class="form-control" name="last_name" placeholder="Last Name" required="">
               </div>
             </div>
+
+<div class="form-group">
+              <label class="col-md-3 control-label" for="radios">Gender</label>
+              <div class="col-md-9">
+                <div class="col-md-3">
+                <div class="radio">
+                  <label for="radios-0">
+                    <input type="radio" name="gender" id="radios-0" value="Male" required="">
+                    Male
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="radio">
+                  <label for="radios-1">
+                    <input type="radio" name="gender" id="radios-1" value="Female" required="">
+                    Female
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="radio">
+                  <label for="radios-2">
+                    <input type="radio" name="gender" id="radios-2" value="Other" required="">
+                    Other
+                  </label>
+                </div>
+              </div>
+            </div>
+            </div>
+
             <div class="form-group">
               <label for="password" class="col-md-3 control-label">Password</label>
               <div class="col-md-9">
@@ -90,28 +121,20 @@
             </div>
 
             <div class="form-group">
-              <label class="col-md-3 control-label" for="radios">Gender</label>
+              <label for="firstname" class="col-md-3 control-label">Language to Speak</label>
               <div class="col-md-9">
-                <div class="radio">
-                  <label for="radios-0">
-                    <input type="radio" name="gender" id="radios-0" value="Male" required="">
-                    Male
-                  </label>
-                </div>
-                <div class="radio">
-                  <label for="radios-1">
-                    <input type="radio" name="gender" id="radios-1" value="Female" required="">
-                    Female
-                  </label>
-                </div>
-                <div class="radio">
-                  <label for="radios-2">
-                    <input type="radio" name="gender" id="radios-2" value="Other" required="">
-                    Other
-                  </label>
-                </div>
+                <input type="text" class="form-control" name="language_to_speak" placeholder="Language to Speak" required=""> 
               </div>
             </div>
+
+             <div class="form-group">
+              <label for="firstname" class="col-md-3 control-label">Bio</label>
+              <div class="col-md-9">
+                <textarea class="form-control" name="bio" placeholder="your bio" required=""></textarea> 
+              </div>
+            </div>
+
+            
 
             <div class="form-group">
               <!-- Button -->                                        
