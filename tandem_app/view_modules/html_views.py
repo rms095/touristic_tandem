@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from tandem_app.models import Profile, Language, Favourite
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
+from django.utils.datastructures import MultiValueDictKeyError
 
 # Serve the index page
 def index(request):
@@ -29,23 +30,22 @@ def editprofile(request):
 
 # Serve the 'view profile page', and provide with content
 def view_profile(request):
+    try:
+        user_id = request.GET['userId']
+        is_self_profile = False
+    except MultiValueDictKeyError:
+        current_user = request.user
+        user_id = current_user.id
+        is_self_profile = True
+
     print("request")
     print(request)
     print(request.user)
 
-    current_user = request.user
-
-    user_id = current_user.id 
-    '''\
-        if "userId" in request.GET \
-        else User.objects.get(current_user.id)'''
-
     profile = Profile.objects.get(user_id=user_id)
     user = User.objects.get(id=user_id)
     print(user)
-    
     languages = Language.objects.filter(user_id=user_id)
-
     print(languages)
     profile_image = os.path.join("userfiles", str(user_id) + ".png")
     print(profile_image)
@@ -57,6 +57,7 @@ def view_profile(request):
         image_path = os.path.join("userfiles", "default.png")
 
     context = {
+        "is_self_profile" : is_self_profile,
         "user_id": user_id,
         "favourite" : Favourite.objects.filter(friend_id=user),
         "profile_image": image_path,

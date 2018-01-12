@@ -13,14 +13,14 @@
         {% load static %}
         <img src="{% static profile_image %}" height="100px">
         <div>
-            {% if user_id %}
+            {% if is_self_profile %}
                 <button id="favourite" value="self">This is you!</button>
             {% elif already_friends %}
                 <button id="favourite" value="remove">Remove favourite</button>
             {% else %}
                 <button id="favourite" value="add">Add favourite</button>
             {% endif %}
-            {% if not user_id %}
+            {% if not is_self_profile %}
                 <form action="message.html">
                     <button type="submit">Send message</button>
                 </form>

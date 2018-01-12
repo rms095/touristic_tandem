@@ -51,9 +51,10 @@ $(document).ready(function() {
                 else {
                     //******** ids
                     $.each(partid, function(i, v) {
+
                         $partListid.append($("<p>")
                         .append($("<button>").text("View profile").click(function(){
-                        alert("partner id is : "+v);
+                            location.href = "http://127.0.0.1:8000/app/viewprofile?userId=" + v;
                         }))
                         );
                     })
