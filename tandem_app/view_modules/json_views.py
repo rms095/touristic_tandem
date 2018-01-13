@@ -23,7 +23,6 @@ def change_profile(request):
     user.bio = bio
 
     user.save()
-
     return JsonResponse({"success": True})
 
 
@@ -127,7 +126,8 @@ def get_profile_picture(request):
 
 
 def edit_favourite(request):
-    user = User.objects.get(id=request.GET["userId"])
+    print("inside edit function")
+    user = User.objects.get(id=request.POST["userId"])
     friend_name = request.POST["friend_name"]
     friend_id = User.objects.get(username=friend_name).id
     action = request.POST["action"]

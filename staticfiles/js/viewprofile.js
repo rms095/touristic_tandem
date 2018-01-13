@@ -1,6 +1,7 @@
 /* --- GLOBALS --- */
 var $favButton = $("#favourite");
 var userName = $("#userName").text();
+var selfUserId = $('#self_user_id').val();
 
 /* --- EVENT HANDLERS --- */
 // When document is loaded
@@ -12,6 +13,7 @@ $(document).ready(function () {
     // twick - Extra map removed
     console.log("Done");
     //$('#map').children().last().remove();
+    updateFriendButton();
 });
 
 
@@ -31,7 +33,8 @@ $favButton.click(function () {
                 "edit_favourite",
                 {
                     friend_name: userName,
-                    action: "add"
+                    action: "add",
+                    userId: selfUserId,
                 },
                 function () {
                     updateFriendButton();
@@ -43,7 +46,8 @@ $favButton.click(function () {
                 "edit_favourite",
                 {
                     friend_name: userName,
-                    action: "remove"
+                    action: "remove",
+                    userId: selfUserId,
                 },
                 function () {
                     updateFriendButton();
@@ -59,7 +63,8 @@ function updateFriendButton() {
         "edit_favourite",
         {
             action: "check_status",
-            friend_name: userName
+            friend_name: userName,
+            userId: selfUserId,
         },
         function (data) {
             if ($favButton.val() === "self") {

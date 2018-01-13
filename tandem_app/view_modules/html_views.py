@@ -38,9 +38,7 @@ def view_profile(request):
         user_id = current_user.id
         is_self_profile = True
 
-    print("request")
-    print(request)
-    print(request.user)
+    currentUser = User.objects.get(id=request.user.id)
 
     profile = Profile.objects.get(user_id=user_id)
     user = User.objects.get(id=user_id)
@@ -62,13 +60,17 @@ def view_profile(request):
         "favourite" : Favourite.objects.filter(friend_id=user),
         "profile_image": image_path,
         "user_name": user.username,
-        "first_name": user.first_name,
+        "view_first_name": user.first_name,
         "last_name": user.last_name,
         "city": profile.city,
         "bio": profile.bio,
         "spoken_languages": [l.language for l in languages if l.language_type == "spoken"],
         "wanted_languages": [l.language for l in languages if l.language_type == "wanted"],
+        "self_user_id" : request.user.id,
+        "first_name" : currentUser.first_name,
     }
+
+    print(context)
 
     return render_to_response('viewprofile.html',context)
 

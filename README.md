@@ -29,6 +29,7 @@ viewprofile :
 2. navigate to edit profile
 3. Added identify person
 4. UI allignment
+5. Show self profile and search partner profile on MultiValueDictKeyError
 5. chat Option
 
 editprofile : 
@@ -56,6 +57,9 @@ Sign up page
 1. Page Creation 
 2. Show error message not found
 3. Take you to home
+
+Search Partner :
+1. integrate viewprofile
 
 issue : 
 1. cant hold values
