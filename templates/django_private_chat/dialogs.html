@@ -1,0 +1,96 @@
+{# This template is here just to demonstrate how to customize the default one. #}
+{# It has none to very few changes #}
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+
+    <input id="session_key" type="hidden" value="{{ request.session.session_key }}">
+    <input id="ws_server_path" type="hidden" value="{{ ws_server_path }}">
+    <input id="opponent_username" type="hidden" value="{{ opponent_username }}">
+    <input id="owner_username" type="hidden" value="{{ request.user.username }}">
+    s
+    <div class="container">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{% trans "Chat list" %}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="user-list-div">
+                        <ul style="list-style-type: none;">
+                            {% for dialog in object_list %}
+                                <li>
+                                    {% if dialog.owner == request.user %}
+                                        {% with dialog.opponent.username as username %}
+                                            <a href="{% url 'dialogs_detail' username %}" id="user-{{ username }}"
+                                               class="btn btn-danger">{% trans "Chat with" %} {{ username }}</a>
+                                        {% endwith %}
+                                    {% else %}
+                                        {% with dialog.owner.username as username %}
+                                            <a href="{% url 'dialogs_detail' username %}" id="user-{{ username }}"
+                                               class="btn btn-danger">{% trans "Chat with" %} {{ username }}</a>
+                                        {% endwith %}
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="well well-lg">
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-9">
+                    <span class="pull-right" hidden id="typing-text">
+                        <strong>{{ opponent_username }} my name {% trans "is typing..." %}</strong>
+                    </span>
+                    </div>
+                    <p>
+                        {{ opponent_username }}
+                    </p>
+                    <p class="text-success" id="online-status" style="display: none">{% trans "Online" %}</p>
+                    <p class="text-danger" id="offline-status" style="display: none">{% trans "Offline" %}</p>
+
+                    <div class="messages-container">
+                        <div id="messages" class="messages">
+                            {% for msg in active_dialog.messages.all %}
+                                <div class="row  {% if msg.read %}msg-read{% else %}msg-unread{% endif %} {% if msg.sender != request.user %}opponent{% endif %}"
+                                     data-id="{{ msg.id }}">
+                                    <p class="{% if msg.sender == request.user %}pull-left{% else %}pull-right{% endif %}">
+                                        <span class="username">{{ msg.sender.username }}:</span>
+                                        {{ msg.text }}
+                                        <span class="timestamp">&ndash; <span
+                                                data-livestamp="{{ msg.get_formatted_create_datetime }}">{{ msg.get_formatted_create_datetime }}</span></span>
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="add-message">
+                        <div class="form-group">
+                        <textarea id="chat-message" class="form-control message"
+                                  placeholder="{% trans 'Write a message' %}"></textarea>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <input id="btn-send-message" type="submit" class="btn btn-primary pull-right send-message"
+                                   style="margin-left: 10px;" value="{% trans 'Send' %}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}

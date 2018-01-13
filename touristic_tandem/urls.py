@@ -15,9 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r"^admin/", admin.site.urls),
-    url(r"^app/", include("tandem_app.urls"))
+    url(r"^app/", include("tandem_app.urls")),
+    url(r'', include('django_private_chat.urls')),
 ] + staticfiles_urlpatterns()
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]

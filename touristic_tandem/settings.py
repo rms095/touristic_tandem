@@ -37,17 +37,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "tandem_app"
+
+    'debug_toolbar',
+    'django_private_chat',
+    'tandem_app',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'touristic_tandem.urls'
@@ -127,6 +132,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+DATETIME_FORMAT = "d.m.Y H:i:s"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -137,6 +143,58 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "staticfiles"),
 )
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format':
+                '%(levelname)s %(asctime)s %(module)s'
+                ' %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django_private_chat': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'custom_app': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        }
+    }
+}
+INTERNAL_IPS = ['127.0.0.1', 'localhost']
+SESSION_COOKIE_AGE = 12096000
+
+CHAT_WS_SERVER_HOST = 'localhost'
+CHAT_WS_SERVER_PORT = 5002
+CHAT_WS_SERVER_PROTOCOL = 'ws'
+
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'viewprofile'
@@ -145,6 +203,6 @@ LOGIN_REDIRECT_URL = 'viewprofile'
 #Email configs
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'rms095@gmail.com'
-EMAIL_HOST_PASSWORD = 'radarbase095'
+EMAIL_HOST_USER = 'your email id'
+EMAIL_HOST_PASSWORD = 'your password'
 EMAIL_PORT = 587

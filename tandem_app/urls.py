@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'template_name': 'logout.html'}, name='logout'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r"InfoPartner", views.InfoPartner),
+    url(r'^friends', views.UserListView.as_view(), name='user_list'),
 ]
 
 

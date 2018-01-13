@@ -14,6 +14,10 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
 from django.template import RequestContext
 
+from braces.views import LoginRequiredMixin
+from django.views import generic
+from django.contrib.auth import get_user_model
+
 def partnerlist(request):
     return render(request, "partnerlist.html")
 
@@ -88,6 +92,14 @@ def handler404(request):
                                   context_instance=RequestContext(request))
     response.status_code = 404
     return response  
+
+class UserListView(LoginRequiredMixin, generic.ListView):
+    model = get_user_model()
+    # These next two lines tell the view to index lookups by username
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    template_name = 'touristic_tandem/users.html'
+    login_url = 'admin/'''
 
 
 # Render pages

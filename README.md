@@ -1,7 +1,23 @@
 # touristic_tandem
 
-Functionality
 
+Steps to run project : 
+1. install python 3.4 or above
+2. install virtualenv
+3. Go to your project folder
+4. cmd> virtualenv env3 -p python3
+5. cmd> source venv/bin/activate
+6. cmd> pip install -r requirements.txt
+7. cmd> python manage.py makemigrations
+8. cmd> python manage.py migrate
+9. Go to settings.py
+10. find for EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+11. add your gmail id and password
+12. cmd> python manage.py runserver --insecure
+
+
+
+Functionality :
 Login Page
 1. login page creation
 2. Success - redirect to dashboard
@@ -62,12 +78,11 @@ Search Partner :
 1. integrate viewprofile
 
 issue : 
-1. cant hold values
+1. cant hold values - still there
 2. cant verify weather data is actually stored or not - Done
 3. stop new tab for every event - Done
 4. duplicate maps issue - Done
-5. Mode - home and travel
-
+5. view profile by username - should be userId 
 
 important :
 Show Errors
